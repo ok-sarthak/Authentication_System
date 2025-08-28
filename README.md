@@ -235,9 +235,9 @@ Create a `.env` file in the root directory:
 
 ```env
 # 🗄️ Database Configuration
-MONGO_URI=mongodb://localhost:27017/vacant-vectors
+MONGO_URI=YOUR_MONGO_URI
 # Or for MongoDB Atlas:
-# MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+# MONGO_URI=YOUR_MONGO_URI
 
 # 🔐 JWT Configuration
 JWT_SECRET=your-super-secret-jwt-key-here
@@ -590,8 +590,8 @@ Have an idea? We'd love to hear it!
 
 **⭐ Star this repository if it helped you!**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/vacant-vectors-auth?style=social)](https://github.com/yourusername/vacant-vectors-auth)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/vacant-vectors-auth?style=social)](https://github.com/yourusername/vacant-vectors-auth)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/vacant-vectors-auth?style=social)](https://github.com/ok-sarthak/Authentication_System)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/vacant-vectors-auth?style=social)](https://github.com/ok-sarthak/Authentication_System)
 
 </div>
 
@@ -601,7 +601,7 @@ Have an idea? We'd love to hear it!
 
 | Metric | Value |
 |--------|-------|
-| **Lines of Code** | ~2,500+ |
+| **Lines of Code** | ~1,000+ |
 | **Components** | 15+ |
 | **API Endpoints** | 7 |
 | **Email Templates** | 3 |
