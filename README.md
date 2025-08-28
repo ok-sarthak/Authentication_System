@@ -337,6 +337,7 @@ sequenceDiagram
     participant Database
     participant Email
 
+    Note over User, Email: Sign Up Flow
     User->>Frontend: Sign Up
     Frontend->>Backend: POST /api/auth/signup
     Backend->>Database: Create User
@@ -349,11 +350,27 @@ sequenceDiagram
     Backend->>Email: Send Welcome Email
     Backend->>Frontend: Verified Response
     
+    Note over User, Email: Login Flow
     User->>Frontend: Login
     Frontend->>Backend: POST /api/auth/login
     Backend->>Database: Validate Credentials
     Backend->>Frontend: JWT Token + User Data
     Frontend->>Frontend: Store Auth State
+    
+    Note over User, Email: Forgot Password Flow
+    User->>Frontend: Forgot Password
+    Frontend->>Backend: POST /api/auth/forgot-password
+    Backend->>Database: Generate Reset Token
+    Backend->>Email: Send Reset Link
+    Backend->>Frontend: Success Response
+    
+    User->>Frontend: Click Reset Link
+    Frontend->>Frontend: Navigate to Reset Page
+    User->>Frontend: Enter New Password
+    Frontend->>Backend: POST /api/auth/reset-password/:token
+    Backend->>Database: Update Password
+    Backend->>Email: Send Success Email
+    Backend->>Frontend: Password Reset Success
 ```
 
 ---
@@ -448,13 +465,15 @@ sequenceDiagram
 ### **Authentication Routes**
 | Method | Endpoint | Description | Auth Required |
 |--------|----------|-------------|---------------|
-| `POST` | `/api/auth/signup` | Register new user | ❌ |
-| `POST` | `/api/auth/login` | User login | ❌ |
-| `POST` | `/api/auth/logout` | User logout | ✅ |
-| `POST` | `/api/auth/verify-email` | Email verification | ❌ |
-| `POST` | `/api/auth/forgot-password` | Request password reset | ❌ |
-| `POST` | `/api/auth/reset-password/:token` | Reset password | ❌ |
-| `GET` | `/api/auth/check-auth` | Verify authentication | ✅ |
+| `POST` | `/api/auth/signup` | Register new user (saves user + sends verification email) | ❌ |
+| `POST` | `/api/auth/login` | User login (returns JWT / sets httpOnly cookie) | ❌ |
+| `POST` | `/api/auth/logout` | Logout user (clear cookie / revoke session) | ✅ |
+| `POST` | `/api/auth/verify-email` | Verify account using 6‑digit code | ❌ |
+| `POST` | `/api/auth/resend-verification` | Resend verification code/email | ❌ |
+| `POST` | `/api/auth/forgot-password` | Request password reset (send reset link/token) | ❌ |
+| `GET`  | `/api/auth/reset-password/:token` | Optional: validate reset token (used to show reset form) | ❌ |
+| `POST` | `/api/auth/reset-password/:token` | Reset password using token from email | ❌ |
+| `GET`  | `/api/auth/check-auth` | Verify current session / token validity | ✅ |
 
 ### **Request/Response Examples**
 
@@ -567,7 +586,7 @@ Have an idea? We'd love to hear it!
 
 <div align="center">
 
-### Made with ❤️ by Vacant Vectors Team
+### Made with ❤️ by Sarthak Chakraborty
 
 **⭐ Star this repository if it helped you!**
 
